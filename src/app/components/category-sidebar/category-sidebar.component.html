@@ -1,0 +1,7 @@
+<div class="sidebar">
+  @for (category of categories; track category.uuid) {
+    <button (click)="selectCategory(category.uuid)">
+      {{ category.title }}
+    </button>
+  }
+</div>

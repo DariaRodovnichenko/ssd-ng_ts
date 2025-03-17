@@ -16,19 +16,10 @@
             "outputPath": "dist/self-service-desk-app",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
-            ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "assets": ["src/assets", "src/favicon.ico"],
+            "styles": ["src/styles.css"],
             "scripts": []
           },
           "configurations": {
@@ -73,24 +64,22 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
-            ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "assets": ["src/assets", "src/favicon.ico"],
+            "styles": ["src/styles.css"],
             "scripts": []
           }
         }
       }
     }
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "standalone": true
+    }
+  },
+  "cli": {
+    "analytics": "4a40dca3-9bb0-4248-8092-3aba4ce9b760"
   }
 }

@@ -1,62 +1,47 @@
+<!-- ✅ WRAP CATEGORIES & PRODUCTS CORRECTLY -->
 <div class="order-container">
-  <!-- Sidebar for categories -->
   <app-category-sidebar
     [categories]="(restaurantData$ | async)?.data ?? []"
-    (categorySelected)="selectCategory($event)"
-  >
+    (categorySelected)="selectCategory($event)">
   </app-category-sidebar>
 
-  <!-- Main content area -->
   <div class="menu-content">
-    <!-- <h1 class="order-title">{{ (restaurantData$ | async)?.title }}</h1> -->
-    <!-- ✅ CART ICON ON TOP-RIGHT -->
-    <div class="cart" (click)="toggleCart()">
-      🛒 Cart: {{ getTotalPrice() }} CHF
-    </div>
+    <a class="cart" routerLink='/cart'>
+      🛒 Cart: {{ orderService.getTotalPrice() }} CHF
+    </a>
 
-    <!-- ✅ DISPLAY CART ITEMS -->
-    @if (cart.length > 0) {
-    <div class="cart-dropdown">
-      <h3>Cart</h3>
-      <ul>
-        @for (item of cart; track item.uuid) {
-        <li>
-          {{ item.title }} - {{ item.price / 100 }} CHF
-          <button (click)="removeFromCart(item, $event)">❌</button>
-        </li>
-        }
-      </ul>
-    </div>
-    } @let restaurantData = (restaurantData$ | async); @if (restaurantData) {
-    @for (category of restaurantData.data; track category.uuid) { @if
-    (!selectedCategoryUuid || selectedCategoryUuid === category.uuid) {
-    <div class="category">
-      <h2>{{ category.title }}</h2>
-      <div class="recipe-list">
-        @for (recipe of category.recipes; track recipe.uuid) {
-        <div class="recipe-card" (click)="toggleDetails(recipe.uuid)">
-          <img
-            [src]="recipe.imageUrl || 'assets/no-image.svg'"
-            [alt]="recipe.title"
-            class="product-img"
-          />
-          <h3>{{ recipe.title }}</h3>
+    <!-- ✅ DISPLAY CATEGORIES PROPERLY -->
+    @let restaurantData = (restaurantData$ | async);
+    @if (restaurantData) {
+      <div class="category-list">  <!-- ✅ New Wrapper for All Categories -->
+        @for (category of restaurantData.data; track category.uuid) {
+          @if (!selectedCategoryUuid || selectedCategoryUuid === category.uuid) {
+            <div class="category">
+              <h2>{{ category.title }}</h2>
+              <div class="recipe-list">
+                @for (recipe of category.recipes; track recipe.uuid) {
+                  <div class="recipe-card" (click)="toggleDetails(recipe.uuid)">
+                    <img [src]="recipe.imageUrl || 'assets/no-image.svg'"
+                        [alt]="recipe.title" class="product-img">
+                    <h3>{{ recipe.title }}</h3>
 
-          <!-- Product details are shown only if selected -->
-          @if (selectedProduct === recipe.uuid){
-          <div class="recipe-details">
-            <p>{{ recipe.description }}</p>
-            <p class="price">{{ recipe.price / 100 }} CHF</p>
-            <button (click)="addToCart(recipe, $event)">Add to Cart</button>
-            <button (click)="closeDetails($event)">Cancel</button>
-          </div>
+                    @if (selectedProduct === recipe.uuid) {
+                      <div class="recipe-details">
+                        <p>{{ recipe.description }}</p>
+                        <p class="price">{{ recipe.price / 100 }} CHF</p>
+                        <button (click)="orderService.addToCart(recipe)">Add to Cart</button>
+                        <button (click)="closeDetails($event)">Cancel</button>
+                      </div>
+                    }
+                  </div>
+                }
+              </div>
+            </div>
           }
-        </div>
         }
       </div>
-    </div>
-    } } } @else {
-    <p>Loading...</p>
+    } @else {
+      <p>Loading...</p>
     }
   </div>
 </div>

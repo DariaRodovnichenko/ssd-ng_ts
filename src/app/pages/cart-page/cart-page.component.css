@@ -1,0 +1,128 @@
+/* General Cart Layout */
+.cart-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Cart Heading */
+.cart-container h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Cart List */
+.cart-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 20px;
+}
+
+.cart-container li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f9f9f9;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+}
+
+/* Quantity Buttons */
+.cart-container button {
+  background: #27ae60;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.2s;
+}
+
+.cart-container button:hover {
+  background: #219150;
+}
+
+.cart-container button:last-child {
+  background: #e74c3c;
+}
+
+.cart-container button:last-child:hover {
+  background: #c0392b;
+}
+
+/* Order Options */
+.order-options {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.order-options label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+input[type="radio"] {
+  margin-right: 5px;
+}
+
+/* Table Number Input */
+#tableNumber {
+  width: 80px;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 16px;
+}
+
+/* Proceed to Payment Button */
+.cart-container button.proceed-btn {
+  width: 100%;
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  background: #3498db;
+}
+
+.cart-container button.proceed-btn:hover {
+  background: #2980b9;
+}
+
+/* Empty Cart Message */
+.cart-container p {
+  font-size: 18px;
+  color: #777;
+  font-weight: bold;
+}
+
+/* Continue Shopping Button */
+.continue-btn {
+  width: 100%;
+  margin-top: 15px;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  background: #f39c12;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+.continue-btn:hover {
+  background: #e67e22;
+}
+

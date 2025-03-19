@@ -4,24 +4,30 @@ import { Recipe, Restaurant } from '../../models/interfaces';
 import { CommonModule } from '@angular/common';
 import { CategorySidebarComponent } from '../../components/category-sidebar/category-sidebar.component';
 import { Observable } from 'rxjs';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+
+export interface CartItem extends Recipe {
+  quantity: number;
+}
 
 @Component({
   selector: 'app-order-page',
   standalone: true,
-  imports: [CommonModule, CategorySidebarComponent],
+  imports: [CommonModule, CategorySidebarComponent, FormsModule, RouterModule],
   templateUrl: './order-page.component.html',
   styleUrls: ['./order-page.component.css'],
 })
 export class OrderPageComponent implements OnInit {
-toggleCart() {
-throw new Error('Method not implemented.');
-}
   restaurantData$!: Observable<Restaurant>;
   selectedCategoryUuid: string | null = null;
   selectedProduct: string | null = null;
-  cart: Recipe[] = [];
+  cart: CartItem[] = [];
+  cartOpen = false;
+  orderType: 'here' | 'toGo' | null = null;
+  tableNumber: number | null = null;
 
-  constructor(private orderService: OrderService) {}
+  constructor(public orderService: OrderService) {}
 
   ngOnInit() {
     this.restaurantData$ = this.orderService.getRestaurantData();
@@ -41,18 +47,8 @@ throw new Error('Method not implemented.');
     this.selectedProduct = null;
   }
 
-  addToCart(recipe: Recipe, event: Event) {
+  addToCart(recipe: any, event: Event) {
     event.stopPropagation();
-    this.cart.push(recipe);
-  }
-
-  removeFromCart(recipe: Recipe, event: Event) {
-    event.stopPropagation();
-    this.cart = this.cart.filter((item) => item.uuid !== recipe.uuid);
-  }
-
-  getTotalPrice(): number {
-    return this.cart.reduce((sum, item) => sum + item.price, 0) / 100;
+    this.orderService.addToCart(recipe);
   }
 }
-

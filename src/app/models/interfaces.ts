@@ -1,10 +1,10 @@
 export interface NutritionalInfo {
-  allergens: string;
-  displayString: string;
+  allergens?: string | null;
+  displayString?: string | null;
 }
 
 export interface ItemAttributeInfo {
-  dietaryLabels: string[] | null;
+  dietaryLabels?: string[] | null;
 }
 
 export interface Recipe {
@@ -13,19 +13,19 @@ export interface Recipe {
   price: number;
   title: string;
   uuid: string;
-  nutritionalInfo: NutritionalInfo;
+  nutritionalInfo?: NutritionalInfo;
   suspendUntil: number;
   classifications: string[];
   hasCustomizations: boolean;
-  itemAttributeInfo: ItemAttributeInfo;
-  tagSection: any | null;
+  itemAttributeInfo?: ItemAttributeInfo;
+  tagSection?: any | null;
 }
 
 export interface Category {
   itemUuids: string[];
   title: string;
   uuid: string;
-  displayType: string | null;
+  displayType?: string | null;
   recipes: Recipe[];
 }
 

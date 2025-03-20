@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { OrderService } from '../../services/order.service';
-import { Recipe } from '../../models/interfaces';
+import { OrderService, CartItem } from '../../services/order.service';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-cart-page',
@@ -15,27 +15,21 @@ import { FormsModule } from '@angular/forms';
 export class CartPageComponent {
   orderType: 'here' | 'toGo' | null = null;
   tableNumber: number | null = null;
+  cart$: Observable<CartItem[]>;
 
-  constructor(private orderService: OrderService, private router: Router) {}
-
-  get cart(): { recipe: Recipe; quantity: number }[] {
-    return this.orderService.cart;
+  constructor(private orderService: OrderService, private router: Router) {
+    this.cart$ = this.orderService.cart$; // Ensures cart$ is properly used as an observable
   }
 
   getTotalPrice(): number {
-    return (
-      this.cart.reduce(
-        (sum, item) => sum + item.recipe.price * item.quantity,
-        0
-      ) / 100
-    );
+    return this.orderService.getTotalPrice();
   }
 
-  removeFromCart(recipe: Recipe) {
+  removeFromCart(recipe: CartItem['recipe']) {
     this.orderService.removeFromCart(recipe);
   }
 
-  addToCart(recipe: Recipe) {
+  addToCart(recipe: CartItem['recipe']) {
     this.orderService.addToCart(recipe);
   }
 
@@ -62,14 +56,13 @@ export class CartPageComponent {
     }
 
     console.log('Proceeding to payment with order:', {
-      cart: this.cart,
+      cart: this.cart$,
       orderType: this.orderType,
       tableNumber: this.tableNumber,
     });
 
     alert('Order placed successfully! Redirecting to payment...');
     this.orderService.clearCart();
-    // Redirect to home page after order
     this.router.navigate(['/']);
   }
 }

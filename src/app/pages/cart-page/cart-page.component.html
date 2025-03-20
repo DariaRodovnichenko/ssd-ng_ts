@@ -1,17 +1,17 @@
 <div class="cart-container">
   <h2>🛒 Your Cart</h2>
 
-  @if (cart.length > 0) {
+  @let cartData = (cart$ | async);
+  @if (cartData && cartData.length > 0) {
     <ul>
-      @for (item of cart; track item.recipe.uuid) {
-  <li>
-    {{ item.recipe.title }} (x{{ item.quantity }}) - 
-    {{ (item.recipe.price * item.quantity) / 100 }} CHF
-    <button (click)="removeFromCart(item.recipe)">➖</button>
-    <button (click)="addToCart(item.recipe)">➕</button>
-  </li>
-}
-
+      @for (item of cartData; track item.recipe.uuid) {
+        <li>
+          {{ item.recipe.title }} (x{{ item.quantity }}) - 
+          {{ (item.recipe.price * item.quantity) / 100 }} CHF
+          <button (click)="removeFromCart(item.recipe)">➖</button>
+          <button (click)="addToCart(item.recipe)">➕</button>
+        </li>
+      }
     </ul>
 
     <!-- Order Type Selection -->
@@ -23,7 +23,6 @@
         <input type="radio" name="orderType" value="here" (change)="setOrderType('here')"> Dine In
       </label>
 
-      <!-- Table Number Input (Only if 'Here' is selected) -->
       @if (orderType === 'here') {
         <div>
           <label for="tableNumber">Enter Table Number:</label>
@@ -36,18 +35,7 @@
     <button (click)="proceedToPayment()" [disabled]="!canProceedToPayment()">
       Proceed to Payment
     </button>
-
-    <!-- Continue Shopping Button -->
-    <button routerLink="/order" class="continue-btn">
-      ← Continue Shopping
-    </button>
-
   } @else {
     <p>Your cart is empty.</p>
-
-     <!-- Continue Shopping Button when the cart is empty -->
-    <button routerLink="/order" class="continue-btn">
-      ← Back to Menu
-    </button>
   }
 </div>

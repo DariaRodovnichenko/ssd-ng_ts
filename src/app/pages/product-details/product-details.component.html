@@ -1,0 +1,18 @@
+<div class="product-details-container">
+  @if (product) {
+    <h2>{{ product.title }}</h2>
+    <img [src]="product.imageUrl || 'assets/no-image.svg'" [alt]="product.title" class="product-img" />
+
+    <p>{{ product.description }}</p>
+    <p class="price">{{ product.price / 100 }} CHF</p>
+
+    <div class="allergens">
+      <strong>Allergens:</strong> {{ product.nutritionalInfo?.allergens || 'None specified' }}
+    </div>
+
+    <button (click)="addToCart()">🛒 Add to Cart</button>
+    <button routerLink="/order">← Back to Menu</button>
+  } @else {
+    <p>Product not found.</p>
+  }
+</div>

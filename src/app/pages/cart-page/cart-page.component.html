@@ -2,7 +2,7 @@
   <h2>🛒 Your Cart</h2>
 
   @let cartData = (cart$ | async);
-  @if (cartData && cartData.length > 0) {
+  @if (cartData?.length) {
     <ul>
       @for (item of cartData; track item.recipe.uuid) {
         <li>
@@ -17,10 +17,10 @@
     <!-- Order Type Selection -->
     <div class="order-options">
       <label>
-        <input type="radio" name="orderType" value="toGo" (change)="setOrderType('toGo')"> Take Away
+        <input type="radio" name="orderType" value="toGo" (change)="setOrderType('toGo')" [(ngModel)]="orderType"> Take Away
       </label>
       <label>
-        <input type="radio" name="orderType" value="here" (change)="setOrderType('here')"> Dine In
+        <input type="radio" name="orderType" value="here" (change)="setOrderType('here')" [(ngModel)]="orderType"> Dine In
       </label>
 
       @if (orderType === 'here') {
@@ -38,4 +38,6 @@
   } @else {
     <p>Your cart is empty.</p>
   }
+  <button (click)="navigateToMenu()">← Back to Menu</button>
+
 </div>

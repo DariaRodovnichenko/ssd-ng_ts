@@ -65,4 +65,8 @@ export class CartPageComponent {
     this.orderService.clearCart();
     this.router.navigate(['/']);
   }
+
+  navigateToMenu() {
+  this.router.navigate(['/order']);
+}
 }

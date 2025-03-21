@@ -1,7 +1,7 @@
 /* General Page Layout */
 .order-container {
   display: flex;
-  gap: 20px;
+  gap: 10px;
   align-items: flex-start;
   max-width: 100%;
   margin: 0 auto;
@@ -16,7 +16,11 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 10px;
+  width: calc(100% - 250px);
+  max-width: 1200px; 
+  padding: 20px;
+  overflow: hidden;
 }
 
 /* Categories */
@@ -37,13 +41,18 @@
 .recipe-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 16px;
   justify-content: flex-start;
+  align-items: flex-start;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 /* Recipe Card */
 .recipe-card {
-  width: 100px;
+  width: 120px;
+  max-width: 100%;
+  height: 120px;
   text-align: center;
   cursor: pointer;
   background: white;
@@ -51,6 +60,7 @@
   padding: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease-in-out;
+  overflow: hidden;
 }
 
 .recipe-card:hover {
@@ -110,9 +120,9 @@
 /* Cart styles */
 .cart {
   position: absolute;
-  align-self: flex-start;
-  top: 0;
-  right: 0;
+  display: block;
+  top: 10px;
+  right: 10px;
   background: #27ae60;
   color: white;
   padding: 10px 16px;
@@ -120,49 +130,11 @@
   cursor: pointer;
   font-weight: bold;
   transition: all 0.2s ease-in-out;
+  z-index: 1000;
 }
 
 .cart:hover {
   background: #219150;
-}
-
-/* Cart dropdown */
-.cart-dropdown {
-  position: absolute;
-  top: 40px;
-  right: 0px;
-  background: white;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  width: 220px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  animation: fadeIn 0.3s ease-in-out;
-}
-
-.cart-dropdown h3 {
-  margin: 0 0 10px;
-}
-
-.cart-dropdown ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.cart-dropdown li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 4px 0;
-}
-
-.cart-dropdown button {
-  background: white;
-  color: red;
-  border: none;
-  padding: 4px 6px;
-  cursor: pointer;
 }
 
 @keyframes fadeIn {
@@ -212,17 +184,6 @@
     font-size: 14px;
     padding: 8px 12px;
   }
-
-  .cart-dropdown {
-    top: 40px;
-    right: 10px;
-    width: 180px;
-    font-size: 12px;
-  }
-
-  .cart-dropdown li {
-    font-size: 12px;
-  }
 }
 
 @media (max-width: 480px) {
@@ -247,9 +208,5 @@
   .cart {
     font-size: 12px;
     padding: 6px 10px;
-  }
-
-  .cart-dropdown {
-    width: 160px;
   }
 }

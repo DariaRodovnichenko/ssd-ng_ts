@@ -10,8 +10,19 @@
       <strong>Allergens:</strong> {{ product.nutritionalInfo?.allergens || 'None specified' }}
     </div>
 
-    <button (click)="addToCart()">🛒 Add to Cart</button>
-    <button routerLink="/order">← Back to Menu</button>
+     <!-- Button Container -->
+    <div class="button-group">
+      <!-- Add to Cart Button -->
+      <button class="btn add-cart" (click)="addToCart()">🛒 Add to Cart</button>
+
+      <!-- Cart Button (Navigates to Cart Page) -->
+      <a class="btn cart-link" routerLink="/cart">
+        🛒 Cart: {{ orderService.getTotalPrice() }} CHF
+      </a>
+
+      <!-- Back to Menu Button -->
+      <button class="btn back-menu" (click)="navigateToMenu()">← Back to Menu</button>
+    </div>
   } @else {
     <p>Product not found.</p>
   }

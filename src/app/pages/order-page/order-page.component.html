@@ -1,34 +1,37 @@
 <div class="order-container">
   <app-category-sidebar
     [categories]="(restaurantData$ | async)?.data ?? []"
-    (categorySelected)="selectCategory($event)">
+    (categorySelected)="selectCategory($event)"
+  >
   </app-category-sidebar>
 
-  <a class="cart" routerLink='/cart'>
-    🛒 Cart: {{ orderService.getTotalPrice() }} CHF
-  </a>
+  <div class="menu-content">
+    <a class="cart" routerLink="/cart">
+      🛒 Cart: {{ orderService.getTotalPrice() }} CHF
+    </a>
 
-  @let restaurantData = (restaurantData$ | async);
-  @if (restaurantData) {
-    @for (category of restaurantData.data; track category.uuid) {
-      @if (!selectedCategoryUuid || selectedCategoryUuid === category.uuid) {
-        <div class="category">
-          <h2>{{ category.title }}</h2>
-          <div class="recipe-list">
-            @for (recipe of category.recipes; track recipe.uuid) {
-              <div class="recipe-card">
-                <a [routerLink]="['/product', recipe.uuid]">
-                  <img [src]="recipe.imageUrl || 'assets/no-image.svg'"
-                       [alt]="recipe.title" class="product-img">
-                  <h3>{{ recipe.title }}</h3>
-                </a>
-              </div>
-            }
-          </div>
+    @let restaurantData = (restaurantData$ | async); @if (restaurantData) { @for
+    (category of restaurantData.data; track category.uuid) { @if
+    (!selectedCategoryUuid || selectedCategoryUuid === category.uuid) {
+    <div class="category">
+      <h2>{{ category.title }}</h2>
+      <div class="recipe-list">
+        @for (recipe of category.recipes; track recipe.uuid) {
+        <div class="recipe-card">
+          <a [routerLink]="['/product', recipe.uuid]">
+            <img
+              [src]="recipe.imageUrl || 'assets/no-image.svg'"
+              [alt]="recipe.title"
+              class="product-img"
+            />
+            <h3>{{ recipe.title }}</h3>
+          </a>
         </div>
-      }
-    }
-  } @else {
+        }
+      </div>
+    </div>
+    } } } @else {
     <p>Loading...</p>
-  }
+    }
+  </div>
 </div>
